@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Domotica Max</string>
+
+    <string name="lights_title">Luci</string>
+    <string name="sounds_title">Audio</string>
+
+    <string name="bathroom">Bagno</string>
+    <string name="living_room">Soggiorno</string>
+
+    <string name="volume">Volume</string>
+
+    <string name="onkyo">Onkyo</string>
+
+    <string name="empty"></string>
+</resources>
