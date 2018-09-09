@@ -24,7 +24,9 @@ public class SoundActivity  extends BaseListActivity
                 Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.onkyo.jp.onkyocontroller");
 
                 if (launchIntent != null) {
-                    startActivity(launchIntent);//null pointer check in case package name was not found
+                    startActivity(launchIntent);
+                }else{
+                    Toast.makeText(SoundActivity.this, "Applicazione Onkyo non trovata", Toast.LENGTH_SHORT).show();
                 }
             }
         };
