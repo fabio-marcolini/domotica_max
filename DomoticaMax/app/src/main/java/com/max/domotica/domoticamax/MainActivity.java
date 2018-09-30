@@ -1,7 +1,11 @@
 package com.max.domotica.domoticamax;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -22,15 +26,45 @@ public class MainActivity extends BaseListActivity {
     @Override
     void addItems(List<GenericItem> items)
     {
-        TextItem sounds = new TextItem(R.string.sounds_title){
+        TextItem livingRoom = new TextItem(R.string.living_room)
+        {
             @Override
             public void onClick(View view)
             {
-                Navigate.toSound(view.getContext());
+                Navigate.toLivingRoom(view.getContext());
             }
         };
-        items.add(sounds);
+        items.add(livingRoom);
+
+        TextItem bathroom = new TextItem(R.string.bathroom)
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Navigate.toBathroom(view.getContext());
+            }
+        };
+        items.add(bathroom);
+
+        TextItem onkyo = new TextItem(R.string.onkyo)
+        {
+            @Override
+            void onClick(View v)
+            {
+                Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.onkyo.jp.onkyocontroller");
+
+                if (launchIntent != null) {
+                    startActivity(launchIntent);
+                }else{
+                    Toast.makeText(MainActivity.this, "Applicazione Onkyo non trovata", Toast.LENGTH_SHORT).show();
+                }
+            }
+        };
+
+        items.add(onkyo);
     }
+
+
 
 
 }

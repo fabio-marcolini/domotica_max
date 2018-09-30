@@ -7,9 +7,13 @@
     <string name="bathroom">Bagno</string>
     <string name="living_room">Soggiorno</string>
 
+    <string name="music">Musica</string>
     <string name="volume">Volume</string>
 
     <string name="onkyo">Onkyo</string>
+
+    <string name="settings">Opzioni</string>
+    <string name="settings_server">Server</string>
 
     <string name="empty"></string>
 </resources>

@@ -69,8 +69,6 @@ public class SoundActivity  extends BaseListActivity
         items.add(livingRoomVolume);
         items.add(bathroomOnOff);
         items.add(bathroomVolume);
-
-
     }
 
 
