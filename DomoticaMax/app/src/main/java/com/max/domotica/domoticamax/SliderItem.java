@@ -26,29 +26,40 @@ public abstract class SliderItem implements GenericItem
     {
         TextView title = view.findViewById(R.id.title);
         title.setText(this.title);
+        TextView value = view.findViewById(R.id.value);
         SeekBar slider = view.findViewById(R.id.slider);
-        slider.setOnSeekBarChangeListener(onChange);
+        value.setText("" + slider.getProgress());
+        slider.setOnSeekBarChangeListener(createOnChangelistener(value));
     }
 
-    private SeekBar.OnSeekBarChangeListener onChange = new SeekBar.OnSeekBarChangeListener() {
-        @Override
-        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
-        {
-            Log.d("OW", "progress: " + progress);
-        }
+    private SeekBar.OnSeekBarChangeListener createOnChangelistener(final TextView value)
+    {
+        return new SeekBar.OnSeekBarChangeListener() {
 
-        @Override
-        public void onStartTrackingTouch(SeekBar seekBar)
-        {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
+            {
+                value.setText("" + progress);
+                onChange(progress);
+            }
 
-        }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar)
+            {
 
-        @Override
-        public void onStopTrackingTouch(SeekBar seekBar)
-        {
-            onStopChange(seekBar.getProgress());
-        }
-    };
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar)
+            {
+                onStopChange(seekBar.getProgress());
+            }
+        };
+    }
 
     abstract void onStopChange(int progress);
+
+    public void onChange(int progress){
+
+    }
 }

@@ -13,6 +13,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Server
 {
     private static Response.Listener<String> onResponse = new Response.Listener<String>() {
@@ -60,12 +63,21 @@ public class Server
             public byte[] getBody() throws AuthFailureError {
                 return super.getBody();
             }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<>();
+                headers.put("Accept", "*/*");
+                return headers;
+            }
         };
+
 
         req.setRetryPolicy(new DefaultRetryPolicy(
                 3000,
                 0,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
 
         queue.add(req);
         queue.start();

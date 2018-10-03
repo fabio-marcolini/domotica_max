@@ -1,5 +1,6 @@
 package com.max.domotica.domoticamax;
 
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.List;
@@ -30,7 +31,8 @@ public class LivingRoomActivity extends BaseListActivity
             @Override
             void onStopChange(int progress)
             {
-                Toast.makeText(LivingRoomActivity.this, "Volume Soggiorno: " + progress, Toast.LENGTH_SHORT).show();
+                String volume = String.format("%03d", progress);
+                Server.doGet(LivingRoomActivity.this, "volume=" + volume);
             }
         };
 

@@ -20,11 +20,25 @@
         android:id="@+id/title"
         />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/small_margin"
+        android:layout_marginTop="@dimen/medium_margin"
+        tools:text="100"
+        android:lines="1"
+        android:ellipsize="end"
+        android:layout_toEndOf="@id/title"
+        android:textSize="@dimen/big_text"
+        android:id="@+id/value"
+        />
+
     <SeekBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/title"
         android:layout_margin="@dimen/small_margin"
+
         android:id="@+id/slider"
         />
 
