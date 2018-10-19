@@ -27,7 +27,13 @@ public abstract class SwitchItem  implements GenericItem
         TextView text = view.findViewById(R.id.title);
         text.setText(this.text);
         Switch switchButton = view.findViewById(R.id.switch_button);
+        setCurrentState(view, switchButton);
         switchButton.setOnCheckedChangeListener(onCheck);
+    }
+
+    void setCurrentState(View view, Switch switchButton)
+    {
+
     }
 
     abstract void onSwitch(boolean on);

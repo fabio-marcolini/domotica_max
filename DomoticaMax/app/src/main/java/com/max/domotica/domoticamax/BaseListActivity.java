@@ -24,9 +24,15 @@ public abstract class BaseListActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(!isTaskRoot());
-        ListView list = findViewById(R.id.main_list);
-        addItems(items);
-        list.setAdapter(new MaxListAdapter(items));
+        final ListView list = findViewById(R.id.main_list);
+
+        Server.updateState(this, new Server.CompletionListener() {
+            @Override
+            public void onCompletion(boolean isFailure) {
+                addItems(items);
+                list.setAdapter(new MaxListAdapter(items));
+            }
+        });
     }
 
 

@@ -28,8 +28,13 @@ public abstract class SliderItem implements GenericItem
         title.setText(this.title);
         TextView value = view.findViewById(R.id.value);
         SeekBar slider = view.findViewById(R.id.slider);
+        setCurrentStatus(view, slider);
         value.setText("" + slider.getProgress());
         slider.setOnSeekBarChangeListener(createOnChangelistener(value));
+    }
+
+    protected void setCurrentStatus(View view, SeekBar slider) {
+
     }
 
     private SeekBar.OnSeekBarChangeListener createOnChangelistener(final TextView value)

@@ -18,6 +18,18 @@ import java.util.Map;
 
 public class Server
 {
+    public interface CompletionListener
+    {
+        void onCompletion(boolean isFailure);
+    }
+
+    private static State lastState = new State();
+
+    public static State getState()
+    {
+        return lastState;
+    }
+
     private static Response.Listener<String> onResponse = new Response.Listener<String>() {
         @Override
         public void onResponse(String response) {
@@ -33,7 +45,39 @@ public class Server
         }
     };
 
+    public static void updateState(final Context context, final CompletionListener listener)
+    {
+        doGet(context, "globale=stato", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                lastState = State.fromResponse(response);
+                listener.onCompletion(false);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context, "error: " + error.toString(), Toast.LENGTH_SHORT).show();
+                listener.onCompletion(true);
+            }
+        });
+    }
+
     public static void doGet(final Context context, String request)
+    {
+        doGet(context, request, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(context, "response: " + response, Toast.LENGTH_SHORT).show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context, "error: " + error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public static void doGet(final Context context, String request, final Response.Listener<String> responseListener, final Response.ErrorListener errorListener)
     {
         RequestQueue queue = Volley.newRequestQueue(context);
 
@@ -49,13 +93,17 @@ public class Server
             @Override
             public void onResponse(String response) {
                 Log.d("SERVER", "REsponse: " + response);
-                Toast.makeText(context, "response: " + response, Toast.LENGTH_SHORT).show();
+                if(responseListener != null) {
+                    responseListener.onResponse(response);
+                }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e("SERVER", "Error: " + error.toString());
-                Toast.makeText(context, "error: " + error.toString(), Toast.LENGTH_SHORT).show();
+                if(errorListener != null) {
+                    errorListener.onErrorResponse(error);
+                }
             }
         })
         {

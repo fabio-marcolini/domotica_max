@@ -1,6 +1,9 @@
 package com.max.domotica.domoticamax;
 
 import android.util.Log;
+import android.view.View;
+import android.widget.SeekBar;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import java.util.List;
@@ -25,6 +28,12 @@ public class LivingRoomActivity extends BaseListActivity
 
                 Server.doGet(LivingRoomActivity.this, "status=" + status);
             }
+
+            @Override
+            void setCurrentState(View view, Switch switchButton)
+            {
+                switchButton.setChecked(Server.getState().amplificatorOn);
+            }
         };
 
         SliderItem livingRoomVolume = new SliderItem(R.string.volume){
@@ -33,6 +42,12 @@ public class LivingRoomActivity extends BaseListActivity
             {
                 String volume = String.format("%03d", progress);
                 Server.doGet(LivingRoomActivity.this, "volume=" + volume);
+            }
+
+            @Override
+            protected void setCurrentStatus(View view, SeekBar slider)
+            {
+                slider.setProgress(Server.getState().volume);
             }
         };
 
