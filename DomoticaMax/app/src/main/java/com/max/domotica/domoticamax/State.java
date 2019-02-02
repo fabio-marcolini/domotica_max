@@ -7,9 +7,12 @@ import java.util.Map;
 
 public class State
 {
-    public int volume = 0;
+    public int stanza0Vol = 0;
+    public int stanza2Vol = 0;
 
     public boolean amplificatorOn = false;
+    public boolean ampliStanza0On = false;
+    public boolean ampliStanza2On = false;
 
     public static State fromResponse(String response)
     {
@@ -31,9 +34,14 @@ public class State
         }
 
         State state = new State();
-        state.volume = readInt(stateMap, "volume", 0);
-        int ampli = readInt(stateMap, "ampli", 0);
+        state.stanza0Vol = readInt(stateMap, "stanza0Vol", 0);
+        state.stanza2Vol = readInt(stateMap, "stanza2Vol", 0);
+        int ampli = readInt(stateMap, "status", 0);
+        int stanza0Ampli = readInt(stateMap, "stanza0Ampli", 0);
+        int stanza2Ampli = readInt(stateMap, "stanza2Ampli", 0);
         state.amplificatorOn = ampli == 1 ? true : false;
+        state.ampliStanza0On = stanza0Ampli == 1 ? true : false;
+        state.ampliStanza2On = stanza2Ampli == 1 ? true : false;
         return state;
     }
 

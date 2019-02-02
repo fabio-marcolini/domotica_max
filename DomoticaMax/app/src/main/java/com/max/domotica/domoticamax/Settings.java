@@ -7,7 +7,7 @@ public class Settings
 {
     public static final String SERVER = "request_server";
 
-    public static final String SERVER_DEFAULT = "http://192.168.0.150";
+    public static final String SERVER_DEFAULT = "http://192.168.1.100";
 
     public static SharedPreferences getPrefs(Context context)
     {

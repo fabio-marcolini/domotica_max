@@ -15,7 +15,7 @@ public class LivingRoomActivity extends BaseListActivity
     {
         setTitle(R.string.living_room);
 
-        SwitchItem livingRoomOnOff = new SwitchItem(R.string.music){
+        SwitchItem amplificatoreOnOff = new SwitchItem(R.string.amplificatore){
 
             @Override
             void onSwitch(boolean on)
@@ -27,6 +27,7 @@ public class LivingRoomActivity extends BaseListActivity
                 }
 
                 Server.doGet(LivingRoomActivity.this, "status=" + status);
+                //Toast.makeText(LivingRoomActivity.this, "Ampli on? " + on, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -36,21 +37,43 @@ public class LivingRoomActivity extends BaseListActivity
             }
         };
 
+        SwitchItem livingRoomOnOff = new SwitchItem(R.string.music){
+
+            @Override
+            void onSwitch(boolean on)
+            {
+                String status = "0";
+                if(on)
+                {
+                    status = "1";
+                }
+
+                Server.doGet(LivingRoomActivity.this, "stanza2Ampli=" + status);
+            }
+
+            @Override
+            void setCurrentState(View view, Switch switchButton)
+            {
+                switchButton.setChecked(Server.getState().ampliStanza2On);
+            }
+        };
+
         SliderItem livingRoomVolume = new SliderItem(R.string.volume){
             @Override
             void onStopChange(int progress)
             {
                 String volume = String.format("%03d", progress);
-                Server.doGet(LivingRoomActivity.this, "volume=" + volume);
+                Server.doGet(LivingRoomActivity.this, "stanza2Vol=" + volume);
             }
 
             @Override
             protected void setCurrentStatus(View view, SeekBar slider)
             {
-                slider.setProgress(Server.getState().volume);
+                slider.setProgress(Server.getState().stanza2Vol);
             }
         };
 
+        items.add(amplificatoreOnOff);
         items.add(livingRoomOnOff);
         items.add(livingRoomVolume);
     }
